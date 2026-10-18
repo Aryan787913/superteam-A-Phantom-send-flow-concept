@@ -3,6 +3,7 @@ const AxeBuilder=require('@axe-core/playwright').default;
 const fs=require('node:fs');
 const path=require('node:path');
 const assert=require('node:assert/strict');
+const sharp=require('sharp');
 (async()=>{
  const browser=await chromium.launch({channel:'msedge',headless:true});
  const context=await browser.newContext({viewport:{width:2160,height:1320},deviceScaleFactor:2});
@@ -12,6 +13,7 @@ const assert=require('node:assert/strict');
  await page.locator('img').evaluateAll(imgs=>Promise.all(imgs.map(i=>i.decode())));
  const boards=page.locator('.board');assert.equal(await boards.count(),7);
  const output=path.join(__dirname,'export');fs.mkdirSync(output,{recursive:true});
+ const webp=path.join(__dirname,'export-webp');fs.mkdirSync(webp,{recursive:true});
  const results=[];
  for(let i=0;i<7;i++){
   const board=boards.nth(i),id=await board.getAttribute('id');
@@ -46,6 +48,7 @@ const assert=require('node:assert/strict');
   assert.deepEqual(await board.evaluate(e=>({w:e.offsetWidth,h:e.offsetHeight})),{w:1920,h:1080});
   await board.screenshot({path:path.join(output,id+'.png'),scale:'device'});
   const png=fs.readFileSync(path.join(output,id+'.png'));assert.equal(png.readUInt32BE(16),3840);assert.equal(png.readUInt32BE(20),2160);
+  await sharp(png).resize(1920,1080).webp({quality:92}).toFile(path.join(webp,id+'.webp'));
   results.push(id+'.png');
  }
  const audit=await new AxeBuilder({page}).withRules(['color-contrast']).analyze();

@@ -11,6 +11,8 @@
 8. Click Share. Set access to Anyone with the link and Can view, subject to your workspace's available settings. Copy the link and test it in a signed-out browser. Do not grant public edit access.
 
 ## Replace Placeholders After Testing
+
+Submission update: Cover and Board 06 now report an expert cognitive walkthrough, not participant results. The current rendered boards have no test-result or link placeholders. Live and Figma links are in README and the case study; the silent video is `video/walkthrough.mp4`. The original placeholder inventory below is historical guidance for a future participant-study revision, not the current presentation.
 Edit `boards/boards.html` and re-export; do not invent missing results.
 
 | Placeholder | Location | Replacement |

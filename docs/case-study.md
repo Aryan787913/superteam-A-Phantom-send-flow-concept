@@ -2,49 +2,38 @@
 
 **Aaryan Singh | Mumbai | Final-year CS student**
 
-## Two-Line Summary
-An independent Phantom newcomer-send concept that makes a small SOL transfer understandable in rupees.
-A simulated prototype, not a shipped Phantom feature; usability outcomes remain untested.
+A scam-resistant, rupee-first Phantom send-flow concept for newcomers accustomed to UPI.
+Validated through an expert cognitive walkthrough, not participant research.
 
-## Case Study
+## Links
+- Live: https://aryan787913.github.io/superteam-A-Phantom-send-flow-concept/
+- Figma: https://www.figma.com/design/datQybXdHn6Bd9hUrmHGnF/First-%E2%82%B9500-on-Solana--Phantom-Redesign
+- Silent walkthrough: [Video](../video/walkthrough.mp4)
 
-### Problem and Audience
-First ₹500 on Solana explores a first transfer for Indian newcomers who think in rupees but must choose a token, understand network fees, and verify an unfamiliar address. My goal is not to redesign Phantom wholesale. It is to help someone understand what they are sending, to whom, and what happens next without implying that a wallet can guarantee safety.
+## Problem
+First-time Indian senders think in rupees and recognize people by name. A shortened wallet address offers neither. Address poisoning exploits that gap: a familiar prefix and suffix can conceal a different destination. Cointelegraph's 10 February 2026 article, “Phantom Chat Triggers Address Poisoning Concerns After User Loses $264K,” documents the risk behind this exploration.
 
-### Evidence and Boundaries
-The user reports an empty wallet, Send showing only Cash rather than SOL, no visible Swap, and empty History. These are reported observations, not findings I independently verified from screenshots. Seven supplied JPEGs remain at the project root; Before mode must use those actual images, never a fabricated reconstruction.
+In the designer's empty-wallet check, Send showed only Cash, no Swap option was visible, and History was empty. These observations motivated clearer onboarding, not a claim that Phantom lacks those features. Phantom already provides history, P&L, transaction simulation, a malicious-site blocklist and spam-token hiding.
 
-Phantom already has history, P&L, transaction simulation, a malicious-site blocklist, and spam-token hiding. This concept complements those protections rather than claiming they are absent. A brief-supplied February 2026 poisoning incident involving approximately $264,000 and 3.5 WBTC is an unverified secondary lead. A primary source is required before publishing that claim as evidence.
+## Decisions
+Safe Send starts with saved contacts. Untrusted addresses remain fully visible; lookalikes trigger a comparison before amount entry. Only the pasted address's differing chunks are red. Full-address fingerprints add a visual cue, not identity verification. The primary action uses the saved contact; overriding requires a two-second hold with visible progress.
 
-### Design Decisions
-Rupee-first amounts make the intended spend legible while preserving the SOL amount and fee. Recipient checks interrupt a potentially risky choice before review. Neither choice proves ownership or makes a transfer scam-proof. A review screen separates amount, recipient, and network cost; failure and success screens make the next action explicit.
+Plain-language moments put INR first while keeping SOL and fees visible. The review names the amount and recipient. Failure explains the fee shortfall and returns a corrected amount to review. Saved recipients receive a Done action; new recipients can be saved after independent verification.
 
-The flow covers home, token, recipient, warning, amount, review, failure, success, and save. Add funding is simulated. Example values use ₹12,400 per SOL and a ₹0.04 fee, not live pricing. No wallet connects and no funds move.
+## Expert Walkthrough
+A cognitive walkthrough used the persona of a UPI user with no crypto experience, on desktop and mobile. No participants were recruited and no usability times, confidence scores or quotes were collected.
 
-### Test Method
-I plan five moderated sessions: send ₹50 to Rahul, then handle an unsafe-address scenario. I will record completion, time, errors, hesitations, and confidence without coaching. No sessions have been conducted. The table below deliberately separates proposed decisions from evidence still needed.
+The ₹50 task takes six taps when the full-address check is included: Send, Rahul, ₹50, Review send, Check full recipient address, Confirm send. This is an interaction count, not a measured participant outcome. The address check is currently optional, so skipping it takes five taps.
 
-### Next Steps
-Run the sessions, inspect confusion at recipient and review, then revise the highest-risk misunderstanding first. Assemble a free Figma file manually using actual captures, document limitations, and publish only after checking labels, links, and mobile behavior. A deployed URL and a Figma file do not yet exist. Findings will determine whether to retain, change, or remove each intervention.
+| Found | Fixed |
+| --- | --- |
+| Warning difficult to discover | Clipboard and unsaved recent recipient open it in the normal flow |
+| Hold lacked feedback | Visible progress, cancellation, keyboard and pointer support |
+| Excessive decimals and inconsistent arithmetic | Four-decimal SOL display; integer-paise balance accounting |
+| Saved contact offered Save again | Done for saved recipients; Save for new recipients |
+| Both addresses appeared risky | Red differences only on the pasted address |
 
-## Planned Results
+SOL figures are rounded display values, not exact accounting precision. The illustrative rate is ₹12,400/SOL and the fee is ₹0.04. No real funds move.
 
-| Metric (five participants) | Before | After |
-| --- | --- | --- |
-| Task A average time | [BEFORE_TIME_AVG] | [AFTER_TIME_AVG] |
-| Task A errors | [BEFORE_ERRORS] | [AFTER_ERRORS] |
-| Task A hesitations | [BEFORE_HESITATIONS] | [AFTER_HESITATIONS] |
-| Task B unsafe sends | [BEFORE_UNSAFE_SENDS] | [AFTER_UNSAFE_SENDS] |
-| Confidence, 1-5 | [BEFORE_CONFIDENCE] | [AFTER_CONFIDENCE] |
-
-Before timings require a safe, interactive baseline with fictional data, not the static evidence viewer. No measurements have been collected.
-
-## Decisions By Feature
-
-| Proposed decision | Evidence needed | Test result | Next decision |
-| --- | --- | --- | --- |
-| Show INR alongside SOL | Can newcomers explain both amounts? | [Not tested] | [Retain / revise / remove] |
-| Interrupt risky recipient selection | Does the warning prompt verification rather than blind dismissal? | [Not tested] | [Retain / revise / remove] |
-| Separate review amount and fee | Can people state the total and destination? | [Not tested] | [Retain / revise / remove] |
-
-The main-text word count covers only the prose under Case Study, excluding headings, summary, attribution, and this table.
+## Next Step
+Moderated tests with five first-time senders will evaluate completion, unsafe decisions, hesitations and confidence. Automated browser checks establish implemented behavior, not newcomer comprehension or scam prevention.
